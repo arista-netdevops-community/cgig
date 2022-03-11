@@ -8,12 +8,30 @@ that subscribes to Arista EOS telemetry states stored centrally in CloudVision a
 Prerequisites:
 
 - unix-based OS with docker installed
+- TerminAttr 1.13.1+ (latest is always the greatest) and having `-cvgnmi` flag set
+e.g.:
+
+```shell
+daemon TerminAttr
+   exec /usr/bin/TerminAttr -cvaddr=192.0.2.100:9910 -taillogs -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -cvvrf=management -cvgnmi
+   no shutdown
+```
+
+- the EOS devices must have gNMI running
+e.g.:
+
+```shell
+management api gnmi
+   transport grpc MGMT
+     vrf MGMT
+   provider eos-native
+```
 
 Tested on macOS Monterey.
 
 ## Steps
 
-1\. Clone the repository
+1\. Clone the repository and update the [gnmic1.yaml](./gnmic1.yaml) 
 
 2\. Run `docker-compose up -d` to build the containers
 
@@ -62,10 +80,13 @@ from(bucket: "telemetry")
   |> drop(columns: ["_start", "_stop"])
 ```
 
-Highly recommend using the Query Builder from InfluxDB UI at http://localhost:8086.
+Highly recommend using the Query Builder from the InfluxDB UI at http://localhost:8086.
 
 ## Useful links
 
 [flux](https://docs.influxdata.com/influxdb/cloud/query-data/flux/)
 
 [influxdb-templates](https://www.influxdata.com/influxdb-templates/network-interface-performance-monitor/)
+
+Checkout [cvp-to-influx](https://github.com/arista-netdevops-community/cvp-to-influx) app written by [Dan Hertzberg](https://github.com/burnyd), a GO app that automatically subscribes to all
+devices streaming OpenConfig data into CloudVision.

@@ -2,10 +2,10 @@ encoding: json_ietf
 log: true
 
 targets:
-  10.83.12.79:443:
+  10.83.12.79:443: # CloudVision
     token: "PLACE_YOUR_CVP_SVC_ACCOUNT_TOKEN_HERE"
 subscriptions:
-    tp-avd-leaf1:
+    tp-avd-leaf1: # name of the subscription, e.g. the switch hostname
      paths:
        - openconfig:/interfaces/interface/state/admin-status
        - openconfig:/interfaces/interface/state/oper-status
@@ -13,7 +13,7 @@ subscriptions:
        - openconfig:/components/component/state/memory
        - openconfig:/interfaces/interface/state/counters
        - openconfig:/network-instances/network-instance/protocols/protocol/bgp/
-     target: BAD032986065E8DC14CBB6472EC314A6
+     target: BAD032986065E8DC14CBB6472EC314A6 # the serial number of the switch
     tp-avd-leaf2:
      paths:
        - openconfig:/interfaces/interface/state/admin-status
