@@ -89,5 +89,7 @@ Highly recommend using the Query Builder from the InfluxDB UI at http://localhos
 
 [influxdb-templates](https://www.influxdata.com/influxdb-templates/network-interface-performance-monitor/)
 
+[gNMIc Deployment Examples](https://gnmic.kmrd.dev/deployments/deployments_intro/)
+
 Checkout [cvp-to-influx](https://github.com/arista-netdevops-community/cvp-to-influx) app written by [Dan Hertzberg](https://github.com/burnyd), a GO app that automatically subscribes to all
-devices streaming OpenConfig data into CloudVision.
+devices streaming OpenConfig data into CloudVision and streams them to influx.
