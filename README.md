@@ -8,6 +8,7 @@ that subscribes to Arista EOS telemetry states stored centrally in CloudVision a
 Prerequisites:
 
 - unix-based OS with docker installed
+- CloudVision 2021.2.0 (recommended 2022.1.0+)
 - TerminAttr 1.13.1+ (latest is always the greatest) and having `-cvgnmi` flag set
 e.g.:
 
@@ -31,7 +32,7 @@ Tested on macOS Monterey.
 
 ## Steps
 
-1\. Clone the repository and update the [gnmic1.yaml](./gnmic1.yaml) 
+1\. Clone the repository and update the [gnmic1.yaml](./gnmic1.yaml)
 
 2\. Run `docker-compose up -d` to build the containers
 
