@@ -1,0 +1,14 @@
+#!/bin/bash
+# This filter avoids submitting tokens to the git repo. To use this:
+#
+# 1. Create a file ~/.cvp_svc_account.token with CV service account token
+# 2. Add the following lines to your .git/config:
+#
+# [filter "remove-tokens"]
+#   clean  = .gitfilters/remove-tokens-clean
+#   smudge = .gitfilters/remove-tokens-smudge
+set -e
+if [ -f ~/.cvp_svc_account.token ]; then
+  TOKEN=$(cat ~/.cvp_svc_account.token)
+  sed "s/\(token:\) \"PLACE_YOUR_CVP_SVC_ACCOUNT_TOKEN_HERE\"/\1 \"$TOKEN\"/g"
+fi

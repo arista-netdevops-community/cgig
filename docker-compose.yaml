@@ -1,0 +1,53 @@
+version: '3'
+
+networks:
+  gnmic-net:
+    driver: bridge
+
+services:
+  gnmic1:
+    image: ghcr.io/karimra/gnmic:latest
+    container_name: gnmic1
+    volumes:
+      - ./gnmic1.yaml:/app/gnmic.yaml
+    command: "subscribe --config /app/gnmic.yaml --gzip --skip-verify"
+    networks:
+      - gnmic-net
+    depends_on:
+      - influxdb
+  grafana:
+    container_name: grafana
+    environment:
+     GF_SECURITY_ADMIN_USER: arista
+     GF_SECURITY_ADMIN_PASSWORD: arista
+    ports:
+     - '3001:3000'
+    networks:
+     - gnmic-net
+    image: grafana/grafana:8.2.6
+    volumes:
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    restart: always
+  influxdb:
+    image: quay.io/influxdb/influxdb:v2.0.4
+    container_name: influxdb
+    networks:
+      - gnmic-net
+    ports:
+      - "8086:8086"
+      - "9999:9999"
+    volumes:
+      - ./influxdbv2:/root/.influxdbv2
+  influxdb_cli:
+    links:
+      - influxdb
+    networks:
+      - gnmic-net
+    image: quay.io/influxdb/influxdb:v2.0.4
+    entrypoint: influx setup --bucket telemetry -t gnmic -o arista --username=gnmic --password=runcvp123! --host=http://influxdb:8086 -f
+    restart: on-failure:20
+    depends_on:
+      - influxdb
+
+volumes:
+  influxdbv2:

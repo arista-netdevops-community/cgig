@@ -1,0 +1,17 @@
+apiVersion: 1
+datasources:
+- orgId: 1
+  version: 2
+  name: InfluxDB
+  type: influxdb
+  access: proxy
+  url: http://influxdb:8086
+  basicAuth: true
+  isDefault: true
+  jsonData:
+    defaultBucket: telemetry
+    httpMode: POST
+    organization: arista
+    version: Flux
+  secureJsonData:
+    token: gnmic
