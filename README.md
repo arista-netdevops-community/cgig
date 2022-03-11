@@ -67,4 +67,5 @@ Highly recommend using the Query Builder from InfluxDB UI at http://localhost:80
 ## Useful links
 
 [flux](https://docs.influxdata.com/influxdb/cloud/query-data/flux/)
+
 [influxdb-templates](https://www.influxdata.com/influxdb-templates/network-interface-performance-monitor/)
